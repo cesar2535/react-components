@@ -11,24 +11,24 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/user-event": "^8.1.0",
     "@xstate/react": "^0.8.1",
     "date-fns": "^2.9.0",
-    "ramda": "^0.26.1",
+    "ramda": "^0.27.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0",
-    "styled-components": "^5.0.0",
-    "xstate": "^4.7.6"
+    "react-scripts": "3.4.0",
+    "styled-components": "^5.0.1",
+    "xstate": "^4.7.8"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.3",
-    "@storybook/addon-links": "^5.3.3",
-    "@storybook/addons": "^5.3.3",
-    "@storybook/preset-create-react-app": "^1.5.1",
-    "@storybook/react": "^5.3.3",
+    "@storybook/addon-actions": "^5.3.13",
+    "@storybook/addon-links": "^5.3.13",
+    "@storybook/addons": "^5.3.13",
+    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/react": "^5.3.13",
     "prettier": "^1.19.1"
   },
   "eslintConfig": {
