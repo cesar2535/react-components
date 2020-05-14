@@ -1,9 +1,12 @@
-
 /**
  * @type {import("xstate").MachineConfig}
  */
 const config = {
-  context: {},
+  id: "calendar",
+  initial: "date",
+  context: {
+    selected: null,
+  },
   states: {
     date: {
       on: {
@@ -12,7 +15,7 @@ const config = {
         ESCAPE: {},
         NEXT_MONTH: {},
         PREVIOUS_MONTH: {},
-      }
+      },
     },
     month: {
       on: {
@@ -20,14 +23,14 @@ const config = {
         ESCAPE: {},
         NEXT_YEAR: {},
         PREVIOUS_YEAR: {},
-      }
+      },
     },
     year: {
       on: {
         SELECT: {},
         NEXT_TEN: {},
-        PREVIOUS_TEN: {}
-      }
-    }
-  }
-}
+        PREVIOUS_TEN: {},
+      },
+    },
+  },
+};
