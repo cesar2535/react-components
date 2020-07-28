@@ -1,13 +1,13 @@
-import { times } from 'ramda';
-import { getDaysInMonth, getDay } from 'date-fns';
-import { THIS_MONTH, THIS_YEAR, CALENDAR_WEEKS } from './config';
+import { times } from "ramda";
+import { getDaysInMonth, getDay } from "date-fns";
+import { THIS_MONTH, THIS_YEAR, CALENDAR_WEEKS } from "./config";
 
 /**
  * @param {Date} date
  * @returns {boolean}
  */
-export const isDate = date => {
-  const isDate = Object.prototype.toString.call(date) === '[object Date]';
+export const isDate = (date) => {
+  const isDate = Object.prototype.toString.call(date) === "[object Date]";
   const isValidDate = date && !Number.isNaN(date.valueOf());
 
   return isDate && isValidDate;
@@ -101,17 +101,17 @@ export default (month = THIS_MONTH, year = THIS_YEAR) => {
 
   const prevMonthDays = getDaysInMonth(new Date(prevMonthYear, prevMonth - 1));
 
-  const prevMonthDates = times(index => {
+  const prevMonthDates = times((index) => {
     const day = index + 1 + (prevMonthDays - daysFromPrevMonth);
     return [prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2)];
   }, daysFromPrevMonth);
 
-  const thisMonthDates = times(index => {
+  const thisMonthDates = times((index) => {
     const day = index + 1;
     return [year, zeroPad(month, 2), zeroPad(day, 2)];
   }, monthDays);
 
-  const nextMonthDates = times(index => {
+  const nextMonthDates = times((index) => {
     const day = index + 1;
     return [nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2)];
   }, daysFromNextMonth);
