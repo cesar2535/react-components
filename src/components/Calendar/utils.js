@@ -1,5 +1,5 @@
 import { times } from "ramda";
-import { getDaysInMonth, getDay } from "date-fns";
+import { getDaysInMonth, getDay, formatISO } from "date-fns";
 import { THIS_MONTH, THIS_YEAR, CALENDAR_WEEKS } from "./config";
 
 /**
@@ -49,6 +49,20 @@ export const isSameDay = (date, baseDate = new Date()) => {
   const dateDate = +date.getDate();
 
   return baseDateDate === dateDate && isSameMonth(date, baseDate);
+};
+
+/**
+ *
+ * @param {Date} date
+ * @return {number[]}
+ */
+export const getDateArray = (date = new Date()) => {
+  const [year = null, month = null, day = null] = formatISO(date, {
+    representation: "date",
+  })
+    .split("-")
+    .map((v) => +v);
+  return [year, month, day];
 };
 
 /**
