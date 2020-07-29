@@ -103,8 +103,8 @@ export const HighlightedCalendarDate = styled(CalendarDate)`
   ${(props) =>
     props.inRange &&
     `
-	  color: #fff !important;
-	  background: #06c !important;
+    color: #fff !important;
+    background: #06c !important;
     ::before {
       content: '';
       position: absolute;
@@ -122,7 +122,7 @@ export const TodayCalendarDate = styled(HighlightedCalendarDate)`
     props.inRange &&
     `
     color: #06c !important;
-	  background: transparent !important;
+    background: transparent !important;
     ::after {
       content: '';
       position: absolute;

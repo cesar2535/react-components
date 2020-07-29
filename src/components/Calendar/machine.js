@@ -6,7 +6,11 @@ const config = {
   initial: "date",
   context: {
     selected: null,
-    datesList: [],
+    today: new Date(),
+    mindate: null,
+    maxdate: null,
+    month: null,
+    year: null,
   },
   states: {
     date: {
