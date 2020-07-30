@@ -36,11 +36,12 @@ export const Demo = () => (
       <div onClick={() => store.set({ progress: generate() })}>
         <CircularProgress
           roundedStroke
-          lineWidth="2"
+          lineWidth="5"
           size="200"
           progress={state.progress}
           progressColor="#08ffc8"
           bgColor="#646464"
+          textColor="#000"
           animationDuration="0.5s"
         />
       </div>
