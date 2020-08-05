@@ -11,17 +11,17 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^10.0.2",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/react": "^10.4.8",
     "@testing-library/user-event": "^10.0.2",
     "@xstate/react": "^0.8.1",
-    "date-fns": "^2.9.0",
-    "ramda": "^0.27.0",
+    "date-fns": "^2.15.0",
+    "ramda": "^0.27.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
-    "xstate": "^4.7.8"
+    "xstate": "^4.11.0"
   },
   "devDependencies": {
     "@sambego/storybook-state": "^2.0.1",
