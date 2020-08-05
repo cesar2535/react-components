@@ -2,17 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { CALENDAR_MONTHS } from "./config";
+import { ArrowLeft, ArrowRight, CalendarHeader, CalendarMonth } from "./styles";
 
 class MonthView extends React.PureComponent {
   render() {
-    const { year } = this.props;
     return (
       <MonthContainer>
-        <MonthHeader>{year}</MonthHeader>
+        {this.renderHeader()}
         <MonthGrid>
           {Object.keys(CALENDAR_MONTHS).map(this.renderMonth)}
         </MonthGrid>
       </MonthContainer>
+    );
+  }
+
+  renderHeader() {
+    const props = { onMouseUp: this.clearPressureTimer };
+
+    return (
+      <CalendarHeader>
+        <ArrowLeft
+          title="Previous"
+          onMouseDown={this.handlePrevious}
+          {...props}
+        />
+        <CalendarMonth>{this.props.year}</CalendarMonth>
+        <ArrowRight title="Next" onMouseDown={this.handleNext} {...props} />
+      </CalendarHeader>
     );
   }
 
@@ -26,11 +42,54 @@ class MonthView extends React.PureComponent {
       </MonthComponent>
     );
   };
+
+  /**
+   * @param {React.MouseEvent} event
+   */
+  handleNext = (event) => {
+    if (event) {
+      event.preventDefault();
+      this.handlePressure("next");
+    }
+  };
+
+  /**
+   * @param {React.MouseEvent} event
+   */
+  handlePrevious = (event) => {
+    if (event) {
+      event.preventDefault();
+      this.handlePressure("previous");
+    }
+  };
+
+  /**
+   *
+   * @param {"next"|"previous"} type
+   */
+  handlePressure = (type) => {
+    if (typeof this.props.onYearChange === "function") {
+      this.props.onYearChange(type);
+
+      this.pressureTimeout = setTimeout(() => {
+        this.pressureTimer = setInterval(
+          () => this.props.onYearChange(type),
+          100
+        );
+      }, 500);
+    }
+  };
+
+  clearPressureTimer = () => {
+    this.pressureTimer && clearInterval(this.pressureTimer);
+    this.pressureTimeout && clearTimeout(this.pressureTimeout);
+  };
 }
 
 MonthView.propTypes = {
   year: PropTypes.number,
   month: PropTypes.number,
+  onYearChange: PropTypes.func,
 };
 
 const MonthContainer = styled.div`
@@ -38,20 +97,6 @@ const MonthContainer = styled.div`
   border: 2px solid #06c;
   border-radius: 5px;
   overflow: hidden;
-`;
-
-const MonthHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 500;
-  font-size: 5em;
-  color: #06c;
-  text-align: center;
-  padding: 0.5em 0.25em;
-  word-spacing: 5px;
-  user-select: none;
 `;
 
 const MonthGrid = styled.div`
