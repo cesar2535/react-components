@@ -31,11 +31,12 @@ class OtpInput extends React.PureComponent {
 
   renderInput = (otp) => (val, idx) => {
     const { activeIdx } = this.state;
+    const inputMode = Rgx[this.props.type] && this.props.type;
 
     return (
       <SingleOtp
         key={idx}
-        inputMode="decimal"
+        inputMode={inputMode}
         isFocused={activeIdx === idx}
         value={otp && otp[idx]}
         onChange={this.handleChange}
@@ -77,6 +78,14 @@ class OtpInput extends React.PureComponent {
 
   /** @param {string} value */
   validateInput(value) {
+    const { type } = this.props;
+
+    if (Rgx[type]) {
+      const isTypeValid = value.match(Rgx[type]);
+
+      return isTypeValid && value.length === 1;
+    }
+
     return value.length === 1;
   }
 

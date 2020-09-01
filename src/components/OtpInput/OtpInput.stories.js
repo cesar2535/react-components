@@ -40,3 +40,16 @@ export const Demo = () => (
     )}
   </State>
 );
+
+export const Decimal = () => (
+  <State store={store}>
+    {(state) => (
+      <OtpInput
+        type="decimal"
+        numInputs={4}
+        value={state.otp}
+        onChange={handleChange}
+      />
+    )}
+  </State>
+);
