@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 class SingleOtp extends React.PureComponent {
   /** @type {React.RefObject<HTMLInputElement>} */
@@ -7,9 +8,9 @@ class SingleOtp extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      this.props.focused !== prevProps.focused &&
+      this.props.isFocused !== prevProps.isFocused &&
       this.inputRef.current &&
-      this.props.focused
+      this.props.isFocused
     ) {
       this.inputRef.current.focus();
       this.inputRef.current.select();
@@ -17,11 +18,11 @@ class SingleOtp extends React.PureComponent {
   }
 
   render() {
-    const { disabled, ...rest } = this.props;
+    const { isFocused, disabled, ...rest } = this.props;
 
     return (
-      <div>
-        <input
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Input
           ref={this.inputRef}
           autoComplete="off"
           maxLength={1}
@@ -34,7 +35,13 @@ class SingleOtp extends React.PureComponent {
 }
 
 SingleOtp.propTypes = {
-  focused: PropTypes.bool,
+  isFocused: PropTypes.bool,
 };
+
+const Input = styled.input`
+  width: 1em;
+  text-align: center;
+  box-sizing: content-box;
+`;
 
 export default SingleOtp;

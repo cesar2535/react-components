@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import SingleOtp from "./SingleOtp";
 
 const Rgx = {
@@ -22,18 +23,20 @@ class OtpInput extends React.PureComponent {
   render() {
     const { numInputs } = this.props;
 
-    const otp = this.props.value ? this.props.value.toString().split("") : [];
-    const inputs = Array(numInputs).map(this.renderInput(otp));
+    const otp = this.getOtpValue();
+    const inputs = Array(numInputs).fill(0).map(this.renderInput(otp));
 
-    return <div>{inputs}</div>;
+    return <Container>{inputs}</Container>;
   }
 
   renderInput = (otp) => (val, idx) => {
     const { activeIdx } = this.state;
+
     return (
       <SingleOtp
+        key={idx}
         inputMode="decimal"
-        focused={activeIdx === idx}
+        isFocused={activeIdx === idx}
         value={otp && otp[idx]}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
@@ -58,12 +61,18 @@ class OtpInput extends React.PureComponent {
   }
 
   getOtpValue() {
-    const { value } = this.props;
-    return value
+    const { value, numInputs } = this.props;
+    const otp = value
       ? typeof value === "string"
         ? value.split("")
         : value.toString().split("")
       : [];
+
+    return Array(numInputs)
+      .fill("")
+      .map((val, idx) => {
+        return otp[idx] || val;
+      });
   }
 
   /** @param {string} value */
@@ -76,7 +85,6 @@ class OtpInput extends React.PureComponent {
     const otpVal = this.getOtpValue();
     otpVal[activeIdx] = value;
 
-    this.focusNextInput();
     this.handleOtpChange(otpVal);
   }
 
@@ -92,22 +100,29 @@ class OtpInput extends React.PureComponent {
 
     if (this.validateInput(value)) {
       this.changeCodeAtFocus(value);
+      this.focusNextInput();
     }
   };
 
   /** @param {React.KeyboardEvent} event */
   handleKeyDown = (event) => {
     if (event.keyCode === KeyCode.BACKSPACE || event.key === "Backspace") {
+      event.preventDefault();
+
+      this.changeCodeAtFocus("");
+      this.focusPrevInput();
     } else if (event.keyCode === KeyCode.DELETE || event.key === "Delete") {
+      event.preventDefault();
+      this.changeCodeAtFocus("");
     } else if (
       event.keyCode === KeyCode.LEFT_ARROW ||
       event.key === "ArrowLeft"
     ) {
+      event.preventDefault();
     } else if (
       event.keyCode === KeyCode.RIGHT_ARROW ||
       event.key === "ArrowRight"
     ) {
-    } else {
       event.preventDefault();
     }
   };
@@ -122,10 +137,16 @@ class OtpInput extends React.PureComponent {
 
 OtpInput.propTypes = {
   numInputs: PropTypes.number,
+  onChange: PropTypes.func,
 };
 
 OtpInput.defaultProps = {
   numInputs: 6,
+  onChange: () => null,
 };
+
+const Container = styled.div`
+  display: flex;
+`;
 
 export default OtpInput;
