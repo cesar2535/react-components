@@ -4,8 +4,6 @@ import { State, Store } from "@sambego/storybook-state";
 
 import OtpInput from "./OtpInput";
 
-const store = new Store({ otp: "" });
-
 export default {
   title: "OTP Input",
   component: OtpInput,
@@ -28,27 +26,34 @@ export default {
   ],
 };
 
-const handleChange = (value) => {
+const DemoStore = new Store({ otp: "" });
+const DecimalStore = new Store({ otp: "" });
+
+const handleChange = (state) => (value) => {
   console.log(value);
-  store.set({ otp: value });
+  state.set({ otp: value });
 };
 
 export const Demo = () => (
-  <State store={store}>
+  <State store={DemoStore}>
     {(state) => (
-      <OtpInput numInputs={4} value={state.otp} onChange={handleChange} />
+      <OtpInput
+        numInputs={4}
+        value={state.otp}
+        onChange={handleChange(DemoStore)}
+      />
     )}
   </State>
 );
 
 export const Decimal = () => (
-  <State store={store}>
+  <State store={DecimalStore}>
     {(state) => (
       <OtpInput
         type="decimal"
         numInputs={4}
         value={state.otp}
-        onChange={handleChange}
+        onChange={handleChange(DecimalStore)}
       />
     )}
   </State>
