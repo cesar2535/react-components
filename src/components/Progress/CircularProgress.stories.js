@@ -1,6 +1,5 @@
 import React from "react";
 
-import { addDecorator } from "@storybook/react";
 import { State, Store } from "@sambego/storybook-state";
 
 import CircularProgress from "./CircularProgress";
@@ -11,22 +10,23 @@ const store = new Store({
   progress: generate(),
 });
 
-addDecorator((storyFn) => (
-  <div
-    style={{
-      textAlign: "center",
-      minWidth: 320,
-      maxWidth: 412,
-      margin: "3rem auto",
-      fontFamily: "SF Pro Display",
-    }}
-  >
-    {storyFn()}
-  </div>
-));
-
 export default {
   title: "Circular progress",
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          textAlign: "center",
+          minWidth: 320,
+          maxWidth: 412,
+          margin: "3rem auto",
+          fontFamily: "SF Pro Display",
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   component: CircularProgress,
 };
 

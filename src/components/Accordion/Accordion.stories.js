@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { addDecorator } from "@storybook/react";
 import { State, Store } from "@sambego/storybook-state";
 
 import Accordion, { Toggle, Collapse } from "./";
@@ -33,19 +32,6 @@ const StyledCollapse = styled.div`
   transition: max-height 0.3s ease;
 `;
 
-addDecorator((storyFn) => (
-  <div
-    style={{
-      minWidth: 320,
-      maxWidth: 412,
-      margin: "3rem auto",
-      fontFamily: "SF Pro Display",
-    }}
-  >
-    {storyFn()}
-  </div>
-));
-
 const store = new Store({
   accordion: null,
 });
@@ -56,6 +42,20 @@ const handleToggle = (eventKey) => {
 
 export default {
   title: "Accordion",
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          minWidth: 320,
+          maxWidth: 412,
+          margin: "3rem auto",
+          fontFamily: "SF Pro Display",
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export const Demo = () => (
