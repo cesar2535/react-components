@@ -99,7 +99,7 @@ export const getNextMonth = (month, year) => {
   return { month: nextMonth, year: nextMonthYear };
 };
 
-export default (month = THIS_MONTH, year = THIS_YEAR) => {
+const calendar = (month = THIS_MONTH, year = THIS_YEAR) => {
   const monthDays = getDaysInMonth(new Date(year, month - 1));
   const monthFirstDay = getDay(new Date(year, month - 1, 1)) + 1;
 
@@ -132,3 +132,5 @@ export default (month = THIS_MONTH, year = THIS_YEAR) => {
 
   return [...prevMonthDates, ...thisMonthDates, ...nextMonthDates];
 };
+
+export default calendar;
